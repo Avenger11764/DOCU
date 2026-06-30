@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import API_BASE from '../config';
 
 export default function ChatArea({ selectedDocId, selectedDocName, selectedSessionId, onQueryComplete }) {
   const [messages, setMessages] = useState([]);
@@ -25,7 +26,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
         return;
       }
       try {
-        const response = await fetch(`/api/documents/sessions/${selectedSessionId}/messages`, {
+        const response = await fetch(`${API_BASE}/api/documents/sessions/${selectedSessionId}/messages`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('docu_token')}`
           }
@@ -101,7 +102,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
         headers['x-gemini-api-key'] = customApiKey;
       }
 
-      const response = await fetch(`/api/documents/sessions/${selectedSessionId}/query`, {
+      const response = await fetch(`${API_BASE}/api/documents/sessions/${selectedSessionId}/query`, {
         method: 'POST',
         headers,
         body: JSON.stringify({

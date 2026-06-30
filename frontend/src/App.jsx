@@ -3,6 +3,7 @@ import LandingPage from './components/LandingPage';
 import DocumentUpload from './components/DocumentUpload';
 import DocumentList from './components/DocumentList';
 import ChatArea from './components/ChatArea';
+import API_BASE from './config';
 
 export default function App() {
   const [showChat, setShowChat] = useState(false);
@@ -13,7 +14,7 @@ export default function App() {
   const fetchDocuments = async () => {
     setIsLoadingDocs(true);
     try {
-      const response = await fetch('/api/documents');
+      const response = await fetch(`${API_BASE}/api/documents`);
       if (response.ok) {
         const data = await response.json();
         setDocuments(data);
@@ -40,7 +41,7 @@ export default function App() {
 
   const handleDeleteDoc = async (id) => {
     try {
-      const response = await fetch(`/api/documents/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_BASE}/api/documents/${id}`, { method: 'DELETE' });
       if (response.ok) {
         setDocuments((prev) => prev.filter((doc) => doc._id !== id));
         if (selectedDocId === id) setSelectedDocId(null);

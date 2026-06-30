@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { UploadCloud, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import API_BASE from '../config';
 
 export default function DocumentUpload({ onUploadSuccess, sessionId }) {
   const [dragActive, setDragActive] = useState(false);
@@ -60,7 +61,7 @@ export default function DocumentUpload({ onUploadSuccess, sessionId }) {
         headers['x-gemini-api-key'] = customApiKey;
       }
 
-      const response = await fetch('/api/documents/upload', {
+      const response = await fetch(`${API_BASE}/api/documents/upload`, {
         method: 'POST',
         headers,
         body: formData,
