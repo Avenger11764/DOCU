@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import documentRoutes from './routes/documentRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import { requireAuth } from './middleware/auth.js';
 
 dotenv.config();
 connectDB();
@@ -16,7 +18,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.use('/api/documents', documentRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/documents', requireAuth, documentRoutes);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', time: new Date() });
