@@ -69,6 +69,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
     setExpandedCitations({});
   };
 
+
   const handleSend = async (e) => {
     e.preventDefault();
     if (!input.trim() || !selectedSessionId || loading) return;
