@@ -4,9 +4,9 @@ import API_BASE from '../config';
 export default function LandingPage({ onGetStarted }) {
   const canvasRef = useRef(null);
   
-  // Auth state variables
+
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
+  const [authMode, setAuthMode] = useState('login');
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [authError, setAuthError] = useState(null);

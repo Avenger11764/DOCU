@@ -203,7 +203,7 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-screen bg-[#FAFAFA] overflow-hidden">
-      {/* Mobile Sidebar Backdrop Overlay */}
+      
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 z-40 bg-black/30 backdrop-blur-xs md:hidden"

@@ -14,12 +14,7 @@ const getGenAIClient = (customApiKey) => {
   return genAI;
 };
 
-/**
- * Generate embedding vector for a given text.
- * @param {string} text 
- * @param {string} [customApiKey]
- * @returns {Promise<number[]>}
- */
+
 export const getEmbedding = async (text, customApiKey) => {
   try {
     const ai = getGenAIClient(customApiKey);
@@ -35,13 +30,7 @@ export const getEmbedding = async (text, customApiKey) => {
   }
 };
 
-/**
- * Stream an answer grounded in document context (or fall back to general LLM response).
- * @param {string} query - The user's question
- * @param {Array<{text: string}>} contextChunks - The most relevant chunks
- * @param {string} [customApiKey]
- * @returns {Promise<any>} The stream object
- */
+
 export const generateGroundedAnswerStream = async (query, contextChunks = [], customApiKey) => {
   try {
     const ai = getGenAIClient(customApiKey);

@@ -11,7 +11,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
 
-  // Track mouse coordinates for dynamic radial spotlight
+
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePos({
@@ -20,7 +20,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
     });
   };
 
-  // Fetch persistent message history for the active session
+
   useEffect(() => {
     const fetchMessages = async () => {
       if (!selectedSessionId) {
@@ -50,7 +50,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
     setExpandedCitations({});
   }, [selectedSessionId]);
 
-  // Auto scroll to bottom
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -152,12 +152,12 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
     setInput('');
     setLoading(true);
 
-    // 1. Add User Message
+
     const userMsg = { role: 'user', text: userQuestion };
     setMessages(prev => [...prev, userMsg]);
 
-    // 2. Add empty Assistant Message to be streamed into
-    const assistantMsgIndex = messages.length + 1; // index in the updated list
+
+    const assistantMsgIndex = messages.length + 1;
     const initialAssistantMsg = { 
       role: 'assistant', 
       text: '', 
@@ -167,7 +167,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
     setMessages(prev => [...prev, initialAssistantMsg]);
 
     try {
-      // 3. Initiate Server-Sent Events request directed at the active session
+
       const customApiKey = localStorage.getItem('docu_custom_api_key');
       const headers = {
         'Content-Type': 'application/json',
@@ -236,13 +236,13 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
                 throw new Error(data.error || "Error streaming response");
               }
             } catch (err) {
-              // Ignore partial JSON parse errors
+
             }
           }
         }
       }
 
-      // Mark message as not loading
+
       setMessages(prev => {
         const updated = [...prev];
         if (updated[assistantMsgIndex]) {
@@ -272,9 +272,9 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
 
   const formatText = (text) => {
     if (!text) return '';
-    // Format bold text
+
     let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Format bullet points
+
     formatted = formatted.replace(/^\*\s+(.*?)$/gm, '• $1');
     return formatted.split('\n').map((line, idx) => (
       <p key={idx} className={line.startsWith('• ') ? "pl-4 py-0.5" : "py-0.5"}>
@@ -299,7 +299,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
       }}
       className="flex flex-col h-full bg-[#FAFAFA] overflow-hidden relative z-10"
     >
-      {/* Dynamic Background Graphics */}
+      
       <div className="absolute inset-0 pointer-events-none opacity-20 -z-10 bg-[linear-gradient(rgba(219,194,176,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(219,194,176,0.15)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
       <div 
         className="absolute inset-0 pointer-events-none -z-10"
@@ -312,8 +312,8 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
         <div className="absolute bottom-[10%] right-[-15%] w-[450px] h-[450px] bg-[#d5e0f8]/60 rounded-full blur-[130px] animate-pulse"></div>
       </div>
 
-      {/* Top Header Bar */}
-      <header className="h-16 bg-white/80 backdrop-blur-md border-b border-[#dbc2b0]/30 flex items-center justify-between px-6 z-40 shadow-sm">
+      
+      <header className="sticky top-0 h-16 bg-white/90 backdrop-blur-md border-b border-[#dbc2b0]/30 flex items-center justify-between px-6 z-50 shadow-sm">
         <div className="flex items-center gap-3 text-slate-800">
           <button 
             onClick={toggleSidebar} 
@@ -340,7 +340,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
         </div>
       </header>
 
-      {/* Messages Feed */}
+      
       <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
         {!selectedDocId ? (
           <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-500 relative z-10">
@@ -377,7 +377,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
                 key={index}
                 className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} animate-fade-in`}
               >
-                {/* Chat Bubble Layout */}
+                
                 {isUser ? (
                   <div className="bg-white p-4 rounded-xl rounded-tr-none max-w-[80%] border border-[#dbc2b0]/30 shadow-sm text-sm text-slate-800 leading-relaxed">
                     <p>{msg.text}</p>
@@ -394,7 +394,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
                       formatText(msg.text)
                     )}
 
-                    {/* Citations badges rendering */}
+                    
                     {!isUser && msg.citations && msg.citations.length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-2">
                         {msg.citations.map((cite, cIdx) => (
@@ -410,7 +410,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
                       </div>
                     )}
 
-                    {/* Expanded Citation Preview Box */}
+                    
                     {!isUser && msg.citations && msg.citations.length > 0 && (
                       <div className="mt-2 flex flex-col gap-2">
                         {msg.citations.map((cite, cIdx) => {
@@ -440,7 +440,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Floating Query Bar */}
+      
       <div className="p-6 flex justify-center bg-transparent">
         <form onSubmit={handleSend} className="w-full max-w-4xl">
           <input 
