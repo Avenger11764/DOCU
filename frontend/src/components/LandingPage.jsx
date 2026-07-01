@@ -401,12 +401,12 @@ export default function LandingPage({ onGetStarted }) {
                   <img 
                     alt="Instant Indexing" 
                     className="w-full h-full object-contain" 
-                    src="/media__1782820232149.png"
+                    src="/instant_indexing.jpg"
                   />
                 </div>
                 <h3 className="font-extrabold text-lg text-[#1a1c1c] mb-3">Instant Indexing</h3>
                 <p className="text-xs text-[#554336] leading-relaxed">
-                  Drag and drop PDFs, DOCX, TXT files or scans and watch our custom engines segment, chunk, and embed them in seconds.
+                  Upload thousands of pages. Our engine categorizes and semanticizes your entire library in seconds, not minutes.
                 </p>
               </div>
             </div>
@@ -415,14 +415,14 @@ export default function LandingPage({ onGetStarted }) {
               <div>
                 <div className="w-full aspect-square bg-[#eeeeee] rounded-lg overflow-hidden mb-6 flex items-center justify-center p-4">
                   <img 
-                    alt="Verifiable Citations" 
+                    alt="Contextual Citations" 
                     className="w-full h-full object-contain" 
-                    src="/media__1782820331489.png"
+                    src="/contextual_citations.jpg"
                   />
                 </div>
-                <h3 className="font-extrabold text-lg text-[#1a1c1c] mb-3">Verifiable Citations</h3>
+                <h3 className="font-extrabold text-lg text-[#1a1c1c] mb-3">Contextual Citations</h3>
                 <p className="text-xs text-[#554336] leading-relaxed">
-                  Every single claim the AI makes is backed by a direct highlight and block quotation reference. Zero speculation.
+                  Never lose track of the source. Every AI response includes direct, clickable links to the exact paragraph in your PDFs.
                 </p>
               </div>
             </div>
@@ -431,14 +431,14 @@ export default function LandingPage({ onGetStarted }) {
               <div>
                 <div className="w-full aspect-square bg-[#eeeeee] rounded-lg overflow-hidden mb-6 flex items-center justify-center p-4">
                   <img 
-                    alt="OCR Intelligence" 
+                    alt="Deep Analysis" 
                     className="w-full h-full object-contain" 
-                    src="/media__1782820943227.png"
+                    src="/deep_analysis.jpg"
                   />
                 </div>
-                <h3 className="font-extrabold text-lg text-[#1a1c1c] mb-3">OCR Intelligence</h3>
+                <h3 className="font-extrabold text-lg text-[#1a1c1c] mb-3">Deep Analysis</h3>
                 <p className="text-xs text-[#554336] leading-relaxed">
-                  Scan images or screen grabs directly inside the workspace to read text from physical papers, diagrams, or snapshots.
+                  Synthesize complex themes across multiple documents. Generate executive summaries and comparative reports automatically.
                 </p>
               </div>
             </div>

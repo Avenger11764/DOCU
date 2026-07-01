@@ -78,13 +78,14 @@ export default function App() {
     if (!token) return;
 
     try {
+      const defaultTitle = `Chat Session - ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
       const response = await fetch(`${API_BASE}/api/documents/sessions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ title: defaultTitle }),
       });
       if (response.ok) {
         const newSess = await response.json();
