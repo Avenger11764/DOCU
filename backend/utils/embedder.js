@@ -53,19 +53,21 @@ export const generateGroundedAnswerStream = async (query, contextChunks = [], cu
         .map((chunk, index) => `[Source ${index + 1}]:\n${chunk.text}`)
         .join('\n\n');
 
-      prompt = `You are a helpful assistant answering questions about uploaded documents.
-You must answer the user's question based ONLY on the provided document sources below.
-If the context does not contain relevant information to answer the question, reply with: "I'm sorry, but I couldn't find any relevant information in the uploaded documents to answer your question."
-Do not make up facts or use outside knowledge not mentioned in the context.
+      prompt = `You are a strict document Q&A assistant. Your ONLY task is to answer the user's question based on the provided document sources below.
 
-When referencing information from a source, you MUST cite it in the text using format like [Source 1], [Source 2], etc.
+CRITICAL INSTRUCTIONS:
+1. You must answer the user's question based ONLY on the provided document sources.
+2. If the user's question is unrelated to the provided document sources, or if the context does not contain the answer, you must respond with EXACTLY: "I am only allowed to answer questions that are directly related to the uploaded document context."
+3. Absolutely DO NOT answer any general knowledge questions, conversational chitchat, mathematical queries, or coding questions that cannot be directly verified by the document sources. Refuse all queries outside the document context using the exact message above.
+4. Do not make up facts, do not use outside knowledge, and do not speculate.
+5. When referencing information from a source, you MUST cite it in the text using format like [Source 1], [Source 2], etc.
 
 Document Sources:
 ${contextText}
 
 User Question: ${query}
 
-Grounded Answer:`;
+Strict Grounded Answer:`;
     } else {
       prompt = `You are a helpful, premium AI research assistant. 
 Answer the user's question. If they ask about documents or files, explain that they can upload them using the drag-and-drop area in the sidebar to chat with them.
