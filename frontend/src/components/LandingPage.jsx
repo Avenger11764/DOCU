@@ -447,26 +447,57 @@ export default function LandingPage({ onGetStarted }) {
 
         <section id="pricing" className="max-w-6xl mx-auto px-6 mb-24 reveal-animation">
           <div className="text-center mb-12">
-            <span className="text-[10px] font-bold text-[#D97706] uppercase tracking-widest block mb-3">Beta Access</span>
-            <h2 className="text-3xl font-extrabold text-slate-800">Start researching today</h2>
+            <span className="text-[10px] font-bold text-[#D97706] uppercase tracking-widest block mb-3">Pricing Plan</span>
+            <h2 className="text-3xl font-extrabold text-slate-800">Simple, transparent pricing</h2>
+            <p className="text-xs text-[#554336] mt-2">Get started today with our full-featured private beta.</p>
           </div>
-          <div className="bg-[#fffdfb] p-10 rounded-2xl border border-[#D97706]/40 relative editorial-shadow max-w-2xl mx-auto text-center">
-            <div className="absolute top-4 right-4 bg-[#D97706] text-white px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest">
-              Limited Offer
+          
+          <div className="max-w-md mx-auto bg-gradient-to-b from-[#fffdfb] to-[#fbf7f3] p-10 rounded-2xl border border-[#dbc2b0] relative editorial-shadow hover:editorial-shadow-hover transition-all duration-300">
+            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#D97706] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+              Early Access Beta
             </div>
             
-            <h3 className="font-extrabold text-2xl text-slate-800 mb-2">Join Private Beta</h3>
-            <p className="text-xs text-[#554336] max-w-md mx-auto mb-6">
-              Get full access to all features—including OCR parsing, vector-search query engine, and citation links.
-            </p>
-            
-            <div className="inline-block bg-[#FEF3C7] border border-[#F59E0B]/30 px-6 py-2.5 rounded-full text-[#B45309] font-extrabold text-xs mb-8">
-              🎉 Highlight: Free for 120 days
+            <div className="text-center mb-8 mt-2">
+              <h3 className="font-extrabold text-xl text-[#1a1c1c]">Beta Access</h3>
+              <p className="text-[11px] text-slate-400 mt-1">Full platform access with no limits during beta</p>
+              
+              <div className="flex items-baseline justify-center gap-2 mt-6">
+                <span className="text-5xl font-black text-[#1a1c1c] tracking-tight">$0</span>
+                <div className="text-left">
+                  <span className="text-xs text-[#B45309] font-extrabold block">Free for 120 days</span>
+                  <span className="text-[10px] text-slate-400 line-through block">Regularly $19/mo</span>
+                </div>
+              </div>
             </div>
 
-            <button onClick={() => openAuth('register')} className="w-full py-4 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-700 transition-colors max-w-sm mx-auto block">
-              Join Beta Now
+            <div className="border-t border-[#dbc2b0]/40 my-6"></div>
+
+            <ul className="space-y-4 mb-8 text-xs text-[#554336]">
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-[#D97706] text-sm font-bold bg-[#FEF3C7] p-1 rounded-full">check</span>
+                <span><strong>Instant Indexing</strong>: PDF, DOCX, TXT upload</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-[#D97706] text-sm font-bold bg-[#FEF3C7] p-1 rounded-full">check</span>
+                <span><strong>Contextual Citations</strong>: Direct references to text</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-[#D97706] text-sm font-bold bg-[#FEF3C7] p-1 rounded-full">check</span>
+                <span><strong>Deep Analysis</strong>: Cross-document reasoning</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-[#D97706] text-sm font-bold bg-[#FEF3C7] p-1 rounded-full">check</span>
+                <span><strong>OCR Scanning</strong>: Physical document support</span>
+              </li>
+            </ul>
+
+            <button 
+              onClick={() => openAuth('register')} 
+              className="w-full py-3.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-700 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Get Started for Free
             </button>
+            <p className="text-[10px] text-slate-400 text-center mt-3">No credit card required. Cancel anytime.</p>
           </div>
         </section>
 
