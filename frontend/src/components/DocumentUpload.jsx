@@ -22,6 +22,11 @@ export default function DocumentUpload({ onUploadSuccess, sessionId }) {
   const processFile = async (file) => {
     if (!file) return;
 
+    if (!sessionId) {
+      setError("No active chat session. Please select or create a chat session first.");
+      return;
+    }
+
     // Validate size (10MB limit)
     if (file.size > 10 * 1024 * 1024) {
       setError("File is too large. Maximum size is 10MB.");

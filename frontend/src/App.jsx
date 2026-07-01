@@ -132,8 +132,6 @@ export default function App() {
       setDocuments([]);
       if (sessions.length > 0) {
         setSelectedSessionId(sessions[0]._id);
-      } else if (showChat) {
-        handleNewSession();
       }
     }
   }, [selectedSessionId, sessions.length]);
