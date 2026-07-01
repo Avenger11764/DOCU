@@ -27,12 +27,14 @@ DOCU is a full-stack RAG (Retrieval-Augmented Generation) platform that lets you
 - Automatic text extraction and intelligent chunking
 - Vector embeddings stored in MongoDB Atlas
 - Cosine similarity search to retrieve relevant context
-- Streaming AI responses grounded in document content
+- Streaming AI responses strictly grounded in document content (out-of-context queries are safely blocked)
 - Source citation with block references
 - User authentication (register/login with JWT)
-- Persistent chat sessions and message history
+- Persistent chat sessions and message history (synced with client local timezone)
 - Custom Gemini API key support
-- Responsive, animated UI
+- Responsive mobile layout with collapsible sidebar drawer
+- Inline file attachment button directly inside the chat typing bar
+- Sticky navigation header tracking active document state
 
 ---
 
@@ -152,6 +154,7 @@ DOCU/
 - **File chunking by structure**: Detect headings, tables, and sections for smarter chunk boundaries instead of fixed-size splitting
 - **Export**: Allow exporting conversation history as PDF or Markdown
 - **LLM-Based Auto-Naming**: Automatically rename chat sessions using Gemini to generate a concise summary/title based on the user's first query, instead of relying on default timestamped titles.
+- **Auto Keep-Alive ping**: Integrate background health checks or ping schedulers to prevent cold starts on Render's Free instance.
 
 ---
 
