@@ -447,70 +447,26 @@ export default function LandingPage({ onGetStarted }) {
 
         <section id="pricing" className="max-w-6xl mx-auto px-6 mb-24 reveal-animation">
           <div className="text-center mb-12">
-            <span className="text-[10px] font-bold text-[#D97706] uppercase tracking-widest block mb-3">Pricing Plans</span>
-            <h2 className="text-3xl font-extrabold text-slate-800">Choose your research velocity</h2>
+            <span className="text-[10px] font-bold text-[#D97706] uppercase tracking-widest block mb-3">Beta Access</span>
+            <h2 className="text-3xl font-extrabold text-slate-800">Start researching today</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            <div className="bg-white/80 p-8 rounded-xl border border-[#dbc2b0] editorial-shadow flex flex-col justify-between">
-              <div>
-                <h3 className="font-extrabold text-lg text-slate-800 mb-1">Standard Researcher</h3>
-                <p className="text-xs text-slate-400 mb-6">For individual writers and academic students.</p>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-3xl font-extrabold text-slate-800">$0</span>
-                  <span className="text-xs text-slate-400">/ forever</span>
-                </div>
-                <ul className="space-y-3 mb-8 text-xs text-slate-600">
-                  <li className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#D97706] text-sm font-bold">check</span>
-                    Up to 10 active files
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#D97706] text-sm font-bold">check</span>
-                    25 messages/day query limit
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#D97706] text-sm font-bold">check</span>
-                    Verifiable reference links
-                  </li>
-                </ul>
-              </div>
-              <button onClick={() => openAuth('register')} className="w-full py-3 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-700 transition-colors">
-                Get Started
-              </button>
+          <div className="bg-[#fffdfb] p-10 rounded-2xl border border-[#D97706]/40 relative editorial-shadow max-w-2xl mx-auto text-center">
+            <div className="absolute top-4 right-4 bg-[#D97706] text-white px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest">
+              Limited Offer
+            </div>
+            
+            <h3 className="font-extrabold text-2xl text-slate-800 mb-2">Join Private Beta</h3>
+            <p className="text-xs text-[#554336] max-w-md mx-auto mb-6">
+              Get full access to all features—including OCR parsing, vector-search query engine, and citation links.
+            </p>
+            
+            <div className="inline-block bg-[#FEF3C7] border border-[#F59E0B]/30 px-6 py-2.5 rounded-full text-[#B45309] font-extrabold text-xs mb-8">
+              🎉 Highlight: Free for 120 days
             </div>
 
-            <div className="bg-[#fffdfb] p-8 rounded-xl border border-[#D97706]/40 relative editorial-shadow flex flex-col justify-between">
-              <div className="absolute top-4 right-4 bg-[#D97706] text-white px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest">Popular</div>
-              <div>
-                <h3 className="font-extrabold text-lg text-slate-800 mb-1">Editorial Suite</h3>
-                <p className="text-xs text-slate-400 mb-6">For deep analytics and legal consulting teams.</p>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-3xl font-extrabold text-slate-800">$29</span>
-                  <span className="text-xs text-slate-400">/ month</span>
-                </div>
-                <ul className="space-y-3 mb-8 text-xs text-slate-600">
-                  <li className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#D97706] text-sm font-bold">check</span>
-                    Unlimited active files
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#D97706] text-sm font-bold">check</span>
-                    Unlimited daily messages
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#D97706] text-sm font-bold">check</span>
-                    Priority RAG search logic
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#D97706] text-sm font-bold">check</span>
-                    OCR scan document reading
-                  </li>
-                </ul>
-              </div>
-              <button onClick={() => openAuth('register')} className="w-full py-3 bg-[#D97706] text-white rounded-xl text-xs font-bold hover:opacity-90 transition-opacity editorial-shadow">
-                Start Premium trial
-              </button>
-            </div>
+            <button onClick={() => openAuth('register')} className="w-full py-4 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-700 transition-colors max-w-sm mx-auto block">
+              Join Beta Now
+            </button>
           </div>
         </section>
 
