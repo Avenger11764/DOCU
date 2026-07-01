@@ -151,6 +151,7 @@ DOCU/
 - **Rate limiting & quotas**: Per-user API usage tracking to handle Gemini quota gracefully
 - **File chunking by structure**: Detect headings, tables, and sections for smarter chunk boundaries instead of fixed-size splitting
 - **Export**: Allow exporting conversation history as PDF or Markdown
+- **LLM-Based Auto-Naming**: Automatically rename chat sessions using Gemini to generate a concise summary/title based on the user's first query, instead of relying on default timestamped titles.
 
 ---
 
