@@ -271,8 +271,20 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
           </div>
         ) : messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
-            <span className="material-symbols-outlined text-slate-300 text-[48px] mb-3">chat_bubble_outline</span>
-            <p className="text-xs text-slate-400">Ask any question to synthesize information from <span className="text-[#8d4b00] font-semibold">{selectedDocName}</span></p>
+            {hasDocuments ? (
+              <>
+                <span className="material-symbols-outlined text-slate-300 text-[48px] mb-3">chat_bubble_outline</span>
+                <p className="text-xs text-slate-400">Ask any question to synthesize information from <span className="text-[#8d4b00] font-semibold">{selectedDocName}</span></p>
+              </>
+            ) : (
+              <>
+                <span className="material-symbols-outlined text-slate-300 text-[48px] mb-3 animate-pulse">upload_file</span>
+                <p className="text-sm font-bold text-slate-700 mb-1">No documents in this session</p>
+                <p className="text-xs text-slate-450 max-w-xs leading-relaxed">
+                  Please upload a PDF, DOCX, TXT file, or image using the sidebar dropzone to activate this chat session.
+                </p>
+              </>
+            )}
           </div>
         ) : (
           messages.map((msg, index) => {
