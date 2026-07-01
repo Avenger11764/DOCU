@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import API_BASE from '../config';
 
-export default function ChatArea({ selectedDocId, selectedDocName, selectedSessionId, onQueryComplete }) {
+export default function ChatArea({ selectedDocId, selectedDocName, selectedSessionId, onQueryComplete, hasDocuments }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -72,7 +72,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
 
   const handleSend = async (e) => {
     e.preventDefault();
-    if (!input.trim() || !selectedSessionId || loading) return;
+    if (!input.trim() || !selectedSessionId || !hasDocuments || loading) return;
 
     const userQuestion = input.trim();
     setInput('');
@@ -354,14 +354,20 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={selectedSessionId ? "Ask a question about the document..." : "Select a document session from the sidebar to ask questions..."}
-              disabled={!selectedSessionId || loading}
-              className="flex-1 bg-transparent border-none focus:ring-0 text-sm text-slate-800 placeholder:text-slate-400/60 py-2 focus:outline-none"
+              placeholder={
+                !selectedSessionId
+                  ? "Select a document session from the sidebar to ask questions..."
+                  : !hasDocuments
+                  ? "Please upload a document to this session to start chatting..."
+                  : "Ask a question about the document..."
+              }
+              disabled={!selectedSessionId || !hasDocuments || loading}
+              className="flex-1 bg-transparent border-none focus:ring-0 text-sm text-slate-800 placeholder:text-slate-400/60 py-2 focus:outline-none disabled:cursor-not-allowed"
             />
             <button
               type="submit"
-              disabled={!selectedSessionId || !input.trim() || loading}
-              className="w-10 h-10 bg-[#D97706] text-white rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95 shadow-md disabled:opacity-40 disabled:hover:scale-100"
+              disabled={!selectedSessionId || !hasDocuments || !input.trim() || loading}
+              className="w-10 h-10 bg-[#D97706] text-white rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95 shadow-md disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
             >
               <span className="material-symbols-outlined text-base font-bold">north</span>
             </button>

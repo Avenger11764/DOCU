@@ -282,6 +282,9 @@ export const querySession = async (req, res) => {
     }
 
     const documents = await Document.find({ sessionId });
+    if (documents.length === 0) {
+      return res.status(400).json({ error: 'Please upload at least one document to start chatting in this session.' });
+    }
     const docIds = documents.map(d => d._id);
     let topChunks = [];
 

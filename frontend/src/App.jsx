@@ -330,6 +330,7 @@ export default function App() {
           selectedDocName={getActiveDocumentsLabel()} 
           selectedSessionId={selectedSessionId}
           onQueryComplete={fetchSessions}
+          hasDocuments={documents.length > 0}
         />
       </div>
 
