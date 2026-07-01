@@ -12,6 +12,7 @@ export default function App() {
   const [selectedSessionId, setSelectedSessionId] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [isLoadingDocs, setIsLoadingDocs] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
@@ -202,7 +203,17 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-screen bg-[#FAFAFA] overflow-hidden">
-      <aside className="w-[30%] min-w-[320px] max-w-[380px] h-full bg-[#f9f9f9] border-r border-[#dbc2b0] flex flex-col z-50 relative overflow-hidden">
+      {/* Mobile Sidebar Backdrop Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-xs md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <aside className={`fixed md:relative top-0 left-0 h-full w-[280px] sm:w-[320px] md:w-[30%] md:min-w-[320px] md:max-w-[380px] bg-[#f9f9f9] border-r border-[#dbc2b0] flex flex-col z-50 overflow-hidden transition-transform duration-300 ease-in-out md:translate-x-0 ${
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
         
         <header className="flex flex-col py-5 px-6 gap-2 border-b border-[#dbc2b0]/30 bg-[#f9f9f9]">
           <div className="flex items-center gap-2 text-lg font-bold text-[#8d4b00]">
@@ -217,7 +228,10 @@ export default function App() {
 
         <div className="flex-1 overflow-y-auto custom-scrollbar px-6 py-4 space-y-6 relative z-10">
           <button 
-            onClick={() => handleNewSession()}
+            onClick={() => {
+              handleNewSession();
+              setIsSidebarOpen(false);
+            }}
             className="flex items-center justify-center gap-2 p-3 bg-[#D97706] text-white rounded-xl text-xs font-bold hover:opacity-90 transition-all duration-200 w-full shadow-md shadow-amber-700/10"
           >
             <span className="material-symbols-outlined text-sm font-bold">add</span>
@@ -245,7 +259,10 @@ export default function App() {
                 return (
                   <div
                     key={sess._id}
-                    onClick={() => setSelectedSessionId(sess._id)}
+                    onClick={() => {
+                      setSelectedSessionId(sess._id);
+                      setIsSidebarOpen(false);
+                    }}
                     className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer group transition-all duration-200 ${
                       isSelected
                         ? 'bg-slate-200/80 font-bold text-slate-800 shadow-sm border-r-2 border-[#D97706]'
@@ -329,6 +346,7 @@ export default function App() {
           selectedSessionId={selectedSessionId}
           onQueryComplete={fetchSessions}
           hasDocuments={documents.length > 0}
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
       </div>
 

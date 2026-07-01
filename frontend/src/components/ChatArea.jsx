@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import API_BASE from '../config';
 
-export default function ChatArea({ selectedDocId, selectedDocName, selectedSessionId, onQueryComplete, hasDocuments }) {
+export default function ChatArea({ selectedDocId, selectedDocName, selectedSessionId, onQueryComplete, hasDocuments, toggleSidebar }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -240,11 +240,20 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
 
       {/* Top Header Bar */}
       <header className="h-16 bg-white/80 backdrop-blur-md border-b border-[#dbc2b0]/30 flex items-center justify-between px-6 z-40 shadow-sm">
-        <div className="flex items-center gap-2 text-slate-800">
-          <span className="text-xs font-semibold text-slate-400">Active Document:</span>
-          <span className="text-sm font-semibold text-[#8d4b00] truncate max-w-[280px]">
-            {selectedDocId ? selectedDocName : 'None selected'}
-          </span>
+        <div className="flex items-center gap-3 text-slate-800">
+          <button 
+            onClick={toggleSidebar} 
+            className="md:hidden p-1.5 -ml-2 rounded-lg hover:bg-slate-100 text-slate-500 transition-colors flex items-center justify-center"
+            title="Toggle Sidebar"
+          >
+            <span className="material-symbols-outlined font-bold text-lg">menu</span>
+          </button>
+          <div className="flex items-center gap-1.5 overflow-hidden">
+            <span className="text-xs font-semibold text-slate-450 truncate">Active:</span>
+            <span className="text-xs font-bold text-[#8d4b00] truncate max-w-[150px] sm:max-w-[280px]">
+              {selectedDocId ? selectedDocName : 'None'}
+            </span>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <button 
