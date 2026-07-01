@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import API_BASE from '../config';
 
-export default function ChatArea({ selectedDocId, selectedDocName, selectedSessionId, onQueryComplete, hasDocuments, toggleSidebar }) {
+export default function ChatArea({ selectedDocId, selectedDocName, selectedSessionId, onQueryComplete, hasDocuments, toggleSidebar, onUploadComplete }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [expandedCitations, setExpandedCitations] = useState({});
   const [mousePos, setMousePos] = useState({ x: 250, y: 250 });
   const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
 
   // Track mouse coordinates for dynamic radial spotlight
   const handleMouseMove = (e) => {
@@ -69,6 +71,78 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
     setExpandedCitations({});
   };
 
+
+  const triggerFileSelect = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!selectedSessionId) {
+      alert("No active chat session. Please select or create a chat session first.");
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File is too large. Maximum size is 10MB.");
+      return;
+    }
+
+    const validTypes = [
+      'application/pdf',
+      'text/plain',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'image/png',
+      'image/jpeg',
+      'image/jpg',
+      'image/webp'
+    ];
+    if (!validTypes.includes(file.type) && !file.name.endsWith('.txt') && !file.name.endsWith('.docx')) {
+      alert("Unsupported file type. Only PDF, TXT, DOCX, and images (PNG, JPEG, WEBP) are allowed.");
+      return;
+    }
+
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('sessionId', selectedSessionId);
+
+    try {
+      const customApiKey = localStorage.getItem('docu_custom_api_key');
+      const headers = {
+        'Authorization': `Bearer ${localStorage.getItem('docu_token')}`
+      };
+      if (customApiKey) {
+        headers['x-gemini-api-key'] = customApiKey;
+      }
+
+      const response = await fetch(`${API_BASE}/api/documents/upload`, {
+        method: 'POST',
+        headers,
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to upload document");
+      }
+
+      if (onUploadComplete) {
+        onUploadComplete(data.document);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "An error occurred during upload.");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -369,8 +443,27 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
       {/* Floating Query Bar */}
       <div className="p-6 flex justify-center bg-transparent">
         <form onSubmit={handleSend} className="w-full max-w-4xl">
-          <div className="bg-white floating-input-shadow border border-[#dbc2b0]/40 rounded-full flex items-center p-2 pl-6 gap-4 focus-within:ring-2 focus-within:ring-[#8d4b00]/20">
-            <span className="material-symbols-outlined text-slate-400 transition-colors">edit_note</span>
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleFileChange} 
+            style={{ display: 'none' }} 
+            accept=".pdf,.txt,.docx,image/*" 
+          />
+          <div className="bg-white floating-input-shadow border border-[#dbc2b0]/40 rounded-full flex items-center p-2 pl-4 pr-2 gap-3 focus-within:ring-2 focus-within:ring-[#8d4b00]/20">
+            {uploading ? (
+              <span className="material-symbols-outlined text-[#D97706] animate-spin text-lg pl-2 shrink-0">sync</span>
+            ) : (
+              <button
+                type="button"
+                onClick={triggerFileSelect}
+                disabled={!selectedSessionId || uploading}
+                className="w-8 h-8 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all flex items-center justify-center shrink-0 disabled:opacity-40"
+                title="Upload document"
+              >
+                <span className="material-symbols-outlined text-lg">attach_file</span>
+              </button>
+            )}
             <input
               type="text"
               value={input}
@@ -379,7 +472,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
                 !selectedSessionId
                   ? "Select a document session from the sidebar to ask questions..."
                   : !hasDocuments
-                  ? "Please upload a document to this session to start chatting..."
+                  ? "Please upload a document to start chatting..."
                   : "Ask a question about the document..."
               }
               disabled={!selectedSessionId || !hasDocuments || loading}
@@ -388,7 +481,7 @@ export default function ChatArea({ selectedDocId, selectedDocName, selectedSessi
             <button
               type="submit"
               disabled={!selectedSessionId || !hasDocuments || !input.trim() || loading}
-              className="w-10 h-10 bg-[#D97706] text-white rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95 shadow-md disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
+              className="w-10 h-10 bg-[#D97706] text-white rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95 shadow-md disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed shrink-0"
             >
               <span className="material-symbols-outlined text-base font-bold">north</span>
             </button>
