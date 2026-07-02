@@ -202,7 +202,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen w-screen bg-[#FAFAFA] overflow-hidden">
+    <div className="flex h-screen h-[100dvh] w-screen bg-[#FAFAFA] overflow-hidden">
       
       {isSidebarOpen && (
         <div 
@@ -347,6 +347,7 @@ export default function App() {
           onQueryComplete={fetchSessions}
           hasDocuments={documents.length > 0}
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          onUploadComplete={handleUploadSuccess}
         />
       </div>
 
