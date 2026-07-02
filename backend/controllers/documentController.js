@@ -15,7 +15,7 @@ const cosineSimilarity = (vecA, vecB) => {
   return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 };
 
-const chunkText = (text, size = 800, overlap = 150) => {
+const chunkText = (text, size = 1200, overlap = 200) => {
   const chunks = [];
   if (!text) return chunks;
   
@@ -300,7 +300,7 @@ export const querySession = async (req, res) => {
         }));
 
         scoredChunks.sort((a, b) => b.similarity - a.similarity);
-        topChunks = scoredChunks.slice(0, 4);
+        topChunks = scoredChunks.slice(0, 10);
       }
     }
 

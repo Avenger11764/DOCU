@@ -42,21 +42,21 @@ export const generateGroundedAnswerStream = async (query, contextChunks = [], cu
         .map((chunk, index) => `[Source ${index + 1}]:\n${chunk.text}`)
         .join('\n\n');
 
-      prompt = `You are a strict document Q&A assistant. Your ONLY task is to answer the user's question based on the provided document sources below.
+      prompt = `You are an expert document analysis and intelligence assistant. Your goal is to synthesize the provided document sources to construct a comprehensive, accurate, and highly detailed answer to the user's question.
 
 CRITICAL INSTRUCTIONS:
-1. You must answer the user's question based ONLY on the provided document sources.
-2. If the user's question is unrelated to the provided document sources, or if the context does not contain the answer, you must respond with EXACTLY: "I am only allowed to answer questions that are directly related to the uploaded document context."
-3. Absolutely DO NOT answer any general knowledge questions, conversational chitchat, mathematical queries, or coding questions that cannot be directly verified by the document sources. Refuse all queries outside the document context using the exact message above.
-4. Do not make up facts, do not use outside knowledge, and do not speculate.
-5. When referencing information from a source, you MUST cite it in the text using format like [Source 1], [Source 2], etc.
+1. Provide a detailed, well-structured answer using rich Markdown formatting (e.g. bold terms, bullet points, headers, or tables if appropriate) to make the explanation easy to read. Do not give incomplete or cut-off answers.
+2. Every time you refer to facts or context from a source, you MUST cite it inline using the format [Source X] (e.g. [Source 1], [Source 2]).
+3. Prioritize answering based on the provided document sources.
+4. If the provided document sources do not contain enough details to fully answer, state what details are present in the sources, mention what is missing, and then you may supplement the response using your general knowledge to provide a complete, up-to-date answer (clearly indicating what is general knowledge vs. document content).
+5. If the user's question is completely unrelated to the documents, answer it directly using your general knowledge, but prefix your answer with a note indicating it is outside the document context.
 
 Document Sources:
 ${contextText}
 
 User Question: ${query}
 
-Strict Grounded Answer:`;
+Optimized Grounded Answer:`;
     } else {
       prompt = `You are a helpful, premium AI research assistant. 
 Answer the user's question. If they ask about documents or files, explain that they can upload them using the drag-and-drop area in the sidebar to chat with them.
